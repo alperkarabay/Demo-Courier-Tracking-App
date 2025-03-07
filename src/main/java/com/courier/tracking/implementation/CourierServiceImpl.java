@@ -22,4 +22,10 @@ public class CourierServiceImpl implements CourierService {
     public List<Courier> getAllCouriers() {
         return courierRepository.findAll();
     }
+
+    @Override
+    public Courier getCourierById(Long id) {
+        return courierRepository.findById(id).orElseThrow(() -> new RuntimeException("Courier not found"));
+    }
+
 }

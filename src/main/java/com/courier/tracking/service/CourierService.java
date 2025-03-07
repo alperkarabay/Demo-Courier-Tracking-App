@@ -8,4 +8,5 @@ import java.util.List;
 public interface CourierService {
     Courier saveCourier(Courier courier);
     List<Courier> getAllCouriers();
+    Courier getCourierById(Long id);
 }
