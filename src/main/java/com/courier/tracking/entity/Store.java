@@ -1,5 +1,6 @@
 package com.courier.tracking.entity;
 
+import com.courier.tracking.dto.StoreDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,13 @@ public class Store {
 
     @Column(nullable = false)
     private Double longitude;
+
+    public StoreDto toDto() {
+        return StoreDto.builder()
+                .id(this.getId())
+                .latitude(this.getLatitude())
+                .longitude(this.getLongitude())
+                .name(this.getName())
+                .build();
+    }
 }
