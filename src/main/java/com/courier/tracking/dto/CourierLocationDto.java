@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class CourierLocationDto {
-    private Long id;
     private Long courierId;
     private Double latitude;
     private Double longitude;
@@ -22,7 +21,6 @@ public class CourierLocationDto {
 
     public CourierLocation toEntity() {
         return CourierLocation.builder()
-                .id(this.getId())
                 .latitude(this.getLatitude())
                 .longitude(this.getLongitude())
                 .timestamp(this.getTimestamp())

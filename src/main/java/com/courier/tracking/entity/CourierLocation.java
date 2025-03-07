@@ -17,7 +17,7 @@ public class CourierLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "courier_id", nullable = false)
     private Courier courier;
 
@@ -36,7 +36,6 @@ public class CourierLocation {
                 .latitude(this.getLatitude())
                 .longitude(this.getLongitude())
                 .timestamp(this.getTimestamp())
-                .id(this.getId())
                 .build();
     }
 

@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface CourierLocationRepository extends JpaRepository<CourierLocation, Long> {
     List<CourierLocation> findByCourierIdOrderByTimestampAsc(Long courierId);
+    CourierLocation findByCourierId(Long courierId);
 }
 
