@@ -1,5 +1,6 @@
 package com.courier.tracking.entity;
 import com.courier.tracking.dto.CourierLocationDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class CourierLocation {
 
     @OneToOne
     @JoinColumn(name = "courier_id", nullable = false, unique = true)
+    @JsonIgnore
     private Courier courier;
 
     @Column(nullable = false)

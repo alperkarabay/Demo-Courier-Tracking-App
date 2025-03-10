@@ -23,7 +23,7 @@ public class CourierController {
 
     @GetMapping
     public ResponseEntity<CustomResponseEntity> getAllCouriers() {
-        return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(), Errors.NO_ERROR.getMessage(),courierService.getAllCouriers().stream().map(Courier::toDto).toList()));
+        return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(), Errors.NO_ERROR.getMessage(),courierService.getAllCouriers().stream().toList()));
     }
 
 }
