@@ -23,6 +23,9 @@ public class Courier {
     @Column(nullable = false)
     private Double totalTraveledDistance;
 
+    @OneToOne(mappedBy = "courier", cascade = CascadeType.ALL, orphanRemoval = true)
+    private CourierLocation currentLocation;
+
     public CourierDto toDto() {
         return CourierDto.builder()
                 .name(this.getName())

@@ -18,7 +18,7 @@ public class CourierLocation {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "courier_id", nullable = false)
+    @JoinColumn(name = "courier_id", nullable = false, unique = true)
     private Courier courier;
 
     @Column(nullable = false)

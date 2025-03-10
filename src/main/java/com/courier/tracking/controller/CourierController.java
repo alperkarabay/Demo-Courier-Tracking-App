@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/couriers")
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class CourierController {
 
     @PostMapping
     public ResponseEntity<CustomResponseEntity> createCourier(@RequestBody CourierDto courierDto) {
-        courierService.saveCourier(courierDto.toEntity()).toDto();
+        courierService.saveCourier(courierDto.toEntity());
         return ResponseEntity.ok(CustomResponseEntity.OK);
     }
 
