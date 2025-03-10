@@ -23,7 +23,7 @@ public class CourierLocationDto {
         return CourierLocation.builder()
                 .latitude(this.getLatitude())
                 .longitude(this.getLongitude())
-                .timestamp(this.getTimestamp())
+                .timestamp(LocalDateTime.now())
                 .build();
     }
 }
