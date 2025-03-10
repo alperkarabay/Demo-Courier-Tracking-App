@@ -1,7 +1,6 @@
 package com.courier.tracking.controller;
 
 import com.courier.tracking.dto.CourierLocationDto;
-import com.courier.tracking.entity.Courier;
 import com.courier.tracking.service.CourierLocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,6 @@
 package com.courier.tracking.service;
 
 
-import com.courier.tracking.dto.CourierDto;
 import com.courier.tracking.entity.Courier;
 import com.courier.tracking.entity.CourierLocation;
 

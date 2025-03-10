@@ -12,7 +12,6 @@ import com.courier.tracking.repository.CourierLocationRepository;
 import com.courier.tracking.service.CourierLocationService;
 import com.courier.tracking.service.CourierService;
 import com.courier.tracking.service.StoreService;
-import com.courier.tracking.util.GeoUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
