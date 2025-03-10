@@ -4,6 +4,7 @@ import com.courier.tracking.dto.CourierLocationDto;
 import com.courier.tracking.enums.Errors;
 import com.courier.tracking.model.CustomResponseEntity;
 import com.courier.tracking.service.CourierLocationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ public class CourierLocationController {
     private final CourierLocationService courierLocationService;
 
     @PostMapping("/observe")
-    public ResponseEntity<CustomResponseEntity> observeCourierLocation(@RequestBody CourierLocationDto courierLocationDto) {
+    public ResponseEntity<CustomResponseEntity> observeCourierLocation(@Valid @RequestBody CourierLocationDto courierLocationDto) {
         CourierLocationDto location = courierLocationService.updateLocation(courierLocationDto).toDto();
         return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(),Errors.NO_ERROR.getMessage(),location));
     }
