@@ -2,6 +2,7 @@ package com.courier.tracking.implementation;
 
 import com.courier.tracking.entity.Courier;
 import com.courier.tracking.entity.CourierLocation;
+import com.courier.tracking.exception.NotFoundException;
 import com.courier.tracking.repository.CourierRepository;
 import com.courier.tracking.service.CourierService;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CourierServiceImpl implements CourierService {
 
     @Override
     public Courier getCourierById(Long id) {
-        return courierRepository.findById(id).orElseThrow(() -> new RuntimeException("Courier not found"));
+        return courierRepository.findById(id).orElseThrow(() -> new NotFoundException("Courier not found"));
     }
 
     @Override

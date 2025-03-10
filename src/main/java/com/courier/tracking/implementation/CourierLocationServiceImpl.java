@@ -26,16 +26,14 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     private final CourierService courierService;
     private final StoreService storeService;
     private final StoreEntryLogger storeEntryLogger;
-    DistanceStoreEntryCheckHandler distanceStoreEntryCheckHandler;
-    RedisStoreEntryCheckHandler redisStoreEntryCheckHandler;
+    private final DistanceStoreEntryCheckHandler distanceStoreEntryCheckHandler;
+    private final RedisStoreEntryCheckHandler redisStoreEntryCheckHandler;
     StoreEntrySubject storeEntrySubject;
 
     @Override
     public CourierLocation saveLocation(CourierLocationDto locationDTO,Courier courier) {
         CourierLocation lastLocation = courierLocationRepository.findByCourierId(courier.getId());
-        CourierLocation currentLocation = locationDTO.toEntity();
-        currentLocation.setCourier(courier);
-        currentLocation.setId(lastLocation.getId());
+        CourierLocation currentLocation = locationDTO.toEntity(lastLocation.getId(),courier);
         courierService.updateTotalDistance(courier, lastLocation, currentLocation);
         return courierLocationRepository.save(currentLocation);
     }
@@ -53,7 +51,6 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     @Override
     public CourierLocation updateLocation(CourierLocationDto courierLocationDto) {
         Courier courier = courierService.getCourierById(courierLocationDto.getCourierId());
-        saveLocation(courierLocationDto, courier);
         List<Store> stores = storeService.getAllStores();
         for (Store store : stores) {
             distanceStoreEntryCheckHandler.setNextHandler(redisStoreEntryCheckHandler);
@@ -62,6 +59,6 @@ public class CourierLocationServiceImpl implements CourierLocationService {
                 storeEntrySubject.notifyObservers(courier, store);
             }
         }
-        return courierLocationDto.toEntity();
+        return saveLocation(courierLocationDto, courier);
     }
 }
