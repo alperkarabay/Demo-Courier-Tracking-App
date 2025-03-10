@@ -2,6 +2,8 @@ package com.courier.tracking.controller;
 
 import com.courier.tracking.dto.CourierDto;
 import com.courier.tracking.entity.Courier;
+import com.courier.tracking.enums.Errors;
+import com.courier.tracking.model.CustomResponseEntity;
 import com.courier.tracking.service.CourierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +18,14 @@ public class CourierController {
     private final CourierService courierService;
 
     @PostMapping
-    public ResponseEntity<CourierDto> createCourier(@RequestBody CourierDto courierDto) {
-        return ResponseEntity.ok(courierService.saveCourier(courierDto.toEntity()).toDto());
+    public ResponseEntity<CustomResponseEntity> createCourier(@RequestBody CourierDto courierDto) {
+        courierService.saveCourier(courierDto.toEntity()).toDto();
+        return ResponseEntity.ok(CustomResponseEntity.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<CourierDto>> getAllCouriers() {
-        return ResponseEntity.ok(courierService.getAllCouriers().stream().map(Courier::toDto).toList());
+    public ResponseEntity<CustomResponseEntity> getAllCouriers() {
+        return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(), Errors.NO_ERROR.getMessage(),courierService.getAllCouriers().stream().map(Courier::toDto).toList()));
     }
 
 }
