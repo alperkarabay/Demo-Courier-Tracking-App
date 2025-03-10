@@ -34,6 +34,7 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     public CourierLocation saveLocation(CourierLocationDto locationDTO,Courier courier) {
         CourierLocation lastLocation = courierLocationRepository.findByCourierId(courier.getId());
         CourierLocation currentLocation = locationDTO.toEntity();
+        currentLocation.setCourier(courier);
         currentLocation.setId(lastLocation.getId());
         courierService.updateTotalDistance(courier, lastLocation, currentLocation);
         return courierLocationRepository.save(currentLocation);
