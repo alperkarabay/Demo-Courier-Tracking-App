@@ -28,7 +28,6 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     private final StoreEntryLogger storeEntryLogger;
     private final DistanceStoreEntryCheckHandler distanceStoreEntryCheckHandler;
     private final RedisStoreEntryCheckHandler redisStoreEntryCheckHandler;
-    StoreEntrySubject storeEntrySubject;
 
     @Override
     public CourierLocation saveLocation(CourierLocationDto locationDTO,Courier courier) {
@@ -52,6 +51,7 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     public CourierLocation updateLocation(CourierLocationDto courierLocationDto) {
         Courier courier = courierService.getCourierById(courierLocationDto.getCourierId());
         List<Store> stores = storeService.getAllStores();
+        StoreEntrySubject storeEntrySubject = new StoreEntrySubject();
         for (Store store : stores) {
             distanceStoreEntryCheckHandler.setNextHandler(redisStoreEntryCheckHandler);
             if(distanceStoreEntryCheckHandler.checkEntry(courier, store, courierLocationDto)) {
