@@ -34,10 +34,16 @@ public class Courier {
     }
 
     public Courier updateTotalTraveledDistance(CourierLocation currentCourierLocation, CourierLocation previousCourierLocation) {
-        this.totalTraveledDistance += GeoUtils.calculateDistance(
-                currentCourierLocation.getLatitude(), currentCourierLocation.getLongitude(),
-                previousCourierLocation.getLatitude(), previousCourierLocation.getLongitude()
-        );
+        if (!isCourierLocationNeverFetched()) {
+            this.totalTraveledDistance += GeoUtils.calculateDistance(
+                    currentCourierLocation.getLatitude(), currentCourierLocation.getLongitude(),
+                    previousCourierLocation.getLatitude(), previousCourierLocation.getLongitude()
+            );
+        }
         return this;
+    }
+
+    public boolean isCourierLocationNeverFetched() {
+        return this.currentLocation.getLatitude() == 0 && this.currentLocation.getLongitude() == 0;
     }
 }
