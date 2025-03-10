@@ -27,7 +27,6 @@ public class Store {
 
     public StoreDto toDto() {
         return StoreDto.builder()
-                .id(this.getId())
                 .latitude(this.getLatitude())
                 .longitude(this.getLongitude())
                 .name(this.getName())

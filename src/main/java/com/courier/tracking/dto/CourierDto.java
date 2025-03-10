@@ -11,13 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CourierDto {
-    private Long id;
     private String name;
     private Double totalTraveledDistance;
 
     public Courier toEntity() {
         return Courier.builder()
-                .id(this.getId())
                 .name(this.getName())
                 .build();
     }

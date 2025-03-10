@@ -25,7 +25,6 @@ public class Courier {
 
     public CourierDto toDto() {
         return CourierDto.builder()
-                .id(this.getId())
                 .name(this.getName())
                 .totalTraveledDistance(this.getTotalTraveledDistance())
                 .build();
