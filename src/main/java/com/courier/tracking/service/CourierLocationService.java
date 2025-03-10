@@ -8,4 +8,6 @@ import java.util.List;
 public interface CourierLocationService {
     CourierLocation saveLocation(CourierLocationDto location);
     List<CourierLocation> getCourierLocations(Long courierId);
+    CourierLocation updateLocation(CourierLocationDto courierLocationDto);
+    CourierLocation getCourierLocation(Long courierId);
 }
