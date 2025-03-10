@@ -1,6 +1,7 @@
 package com.courier.tracking.controller;
 
 import com.courier.tracking.dto.CourierLocationDto;
+import com.courier.tracking.entity.Courier;
 import com.courier.tracking.service.CourierLocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CourierLocationController {
     private final CourierLocationService courierLocationService;
-
-    public ResponseEntity<CourierLocationDto> updateCourierLocation(CourierLocationDto courierLocationDto) {
-        return ResponseEntity.ok(courierLocationService.saveLocation(courierLocationDto).toDto());
-    }
 
     @PostMapping("/observe")
     public ResponseEntity<CourierLocationDto> observeCourierLocation(@RequestBody CourierLocationDto courierLocationDto) {

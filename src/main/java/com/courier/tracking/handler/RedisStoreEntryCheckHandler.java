@@ -1,6 +1,7 @@
 package com.courier.tracking.handler;
 
 
+import com.courier.tracking.dto.CourierLocationDto;
 import com.courier.tracking.entity.Courier;
 import com.courier.tracking.entity.Store;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class RedisStoreEntryCheckHandler extends StoreEntryCheckHandler {
     private static final long EXPIRATION_TIME_SECONDS = 60;
 
     @Override
-    public boolean checkEntry(Courier courier, Store store) {
+    public boolean checkEntry(Courier courier, Store store, CourierLocationDto courierLocationDto) {
         String key = REDIS_KEY_PREFIX + courier.getId() + ":" + store.getId();
 
         //If the key exists in Redis, the courier is already in the store's radius
@@ -32,7 +33,7 @@ public class RedisStoreEntryCheckHandler extends StoreEntryCheckHandler {
 
         //Move to the next handler
         if (nextHandler != null) {
-            return nextHandler.checkEntry(courier, store);
+            return nextHandler.checkEntry(courier, store,courierLocationDto);
         }
         return true;
     }

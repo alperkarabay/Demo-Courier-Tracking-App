@@ -1,5 +1,6 @@
 package com.courier.tracking.handler;
 
+import com.courier.tracking.dto.CourierLocationDto;
 import com.courier.tracking.entity.Courier;
 import com.courier.tracking.entity.CourierLocation;
 import com.courier.tracking.entity.Store;
@@ -10,15 +11,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DistanceStoreEntryCheckHandler extends StoreEntryCheckHandler {
+public class  DistanceStoreEntryCheckHandler extends StoreEntryCheckHandler {
     private final CourierLocationService courierLocationService;
     private static final double ENTRY_RADIUS_METERS = 100;
 
     @Override
-    public boolean checkEntry(Courier courier, Store store) {
-        CourierLocation courierLocation = courierLocationService.getCourierLocation(courier.getId());
+    public boolean checkEntry(Courier courier,Store store, CourierLocationDto courierLocationDto) {
         double distance = GeoUtils.calculateDistance(
-                courierLocation.getLatitude(), courierLocation.getLongitude(),
+                courierLocationDto.getLatitude(), courierLocationDto.getLongitude(),
                 store.getLatitude(), store.getLongitude()
         );
 
@@ -28,7 +28,7 @@ public class DistanceStoreEntryCheckHandler extends StoreEntryCheckHandler {
 
         //Move to the next handler
         if (nextHandler != null) {
-            return nextHandler.checkEntry(courier, store);
+            return nextHandler.checkEntry(courier, store, courierLocationDto);
         }
         return true;
     }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class CourierDto {
     private Long id;
     private String name;
+    private Double totalTraveledDistance;
 
     public Courier toEntity() {
         return Courier.builder()

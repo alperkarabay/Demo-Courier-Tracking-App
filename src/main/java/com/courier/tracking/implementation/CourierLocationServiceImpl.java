@@ -15,7 +15,6 @@ import com.courier.tracking.service.StoreService;
 import com.courier.tracking.util.GeoUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,11 +32,12 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     StoreEntrySubject storeEntrySubject;
 
     @Override
-    public CourierLocation saveLocation(CourierLocationDto locationDTO) {
-        CourierLocation location = locationDTO.toEntity();
-        location.setId(courierLocationRepository.findByCourierId(locationDTO.getCourierId()).getId());
-
-        return courierLocationRepository.save(location);
+    public CourierLocation saveLocation(CourierLocationDto locationDTO,Courier courier) {
+        CourierLocation lastLocation = courierLocationRepository.findByCourierId(courier.getId());
+        CourierLocation currentLocation = locationDTO.toEntity();
+        currentLocation.setId(lastLocation.getId());
+        courierService.updateTotalDistance(courier, lastLocation, currentLocation);
+        return courierLocationRepository.save(currentLocation);
     }
 
     @Override
@@ -53,18 +53,15 @@ public class CourierLocationServiceImpl implements CourierLocationService {
     @Override
     public CourierLocation updateLocation(CourierLocationDto courierLocationDto) {
         Courier courier = courierService.getCourierById(courierLocationDto.getCourierId());
-        saveLocation(courierLocationDto);
-
+        saveLocation(courierLocationDto, courier);
         List<Store> stores = storeService.getAllStores();
         for (Store store : stores) {
             distanceStoreEntryCheckHandler.setNextHandler(redisStoreEntryCheckHandler);
-            if(distanceStoreEntryCheckHandler.checkEntry(courier, store)) {
+            if(distanceStoreEntryCheckHandler.checkEntry(courier, store, courierLocationDto)) {
                 storeEntryLogger.onCourierEnterStoreRadius(courier, store);
                 storeEntrySubject.notifyObservers(courier, store);
             }
-
         }
-
         return courierLocationDto.toEntity();
     }
 }
