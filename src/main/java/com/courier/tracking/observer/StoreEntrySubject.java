@@ -2,6 +2,7 @@ package com.courier.tracking.observer;
 
 import com.courier.tracking.entity.Courier;
 import com.courier.tracking.entity.Store;
+import com.courier.tracking.handler.DistanceStoreEntryCheckHandler;
 import com.courier.tracking.logger.StoreEntryLogger;
 import jakarta.annotation.PostConstruct;
 
@@ -28,4 +29,5 @@ public class StoreEntrySubject {
             observer.onCourierEnterStoreRadius(courier, store);
         }
     }
+
 }

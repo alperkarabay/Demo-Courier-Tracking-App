@@ -22,11 +22,4 @@ public class StoreDto {
     @Min(value = -180, message = "Longitude must be greater than or equal to -180")
     private Double longitude;
 
-    public StoreDto toEntity() {
-        return StoreDto.builder()
-                .latitude(this.getLatitude())
-                .longitude(this.getLongitude())
-                .name(this.getName())
-                .build();
-    }
 }
