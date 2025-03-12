@@ -26,4 +26,14 @@ public class CourierController {
         return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(), Errors.NO_ERROR.getMessage(),courierService.getAllCouriers().stream().toList()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomResponseEntity> getCourierById(@PathVariable Long id) {
+        return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(), Errors.NO_ERROR.getMessage(),courierService.getCourierById(id)));
+    }
+
+    @GetMapping("/{id}/total-travel-distance")
+    public ResponseEntity<CustomResponseEntity> getTotalTravelDistance(@PathVariable Long id) {
+        return ResponseEntity.ok(new CustomResponseEntity(Errors.NO_ERROR.getValue(), Errors.NO_ERROR.getMessage(),courierService.getTotalTraveDistance(id)));
+    }
+
 }
