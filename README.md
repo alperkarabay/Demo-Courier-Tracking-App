@@ -52,5 +52,39 @@ spring.jpa.hibernate.ddl-auto=update
 mvn clean package
 java -jar target/courier-tracking.jar
 
+📌 API Endpoints
+Method	Endpoint	                        Description
+POST	/api/couriers	                    Create a new courier
+GET	    /api/couriers	                    Get all couriers
+POST	/api/couriers/location	            Update courier location
+GET	    /api/couriers/{id}/total-distance	Get total traveled distance of a courier
+GET	    /api/stores	                        Get all Migros store locations
+
+📌 Use tools like Postman or cURL to test these endpoints.
+
+📌 Design Patterns Used
+✅ Observer Pattern → To notify when a courier enters a store radius
+✅ Chain of Responsibility Pattern → For sequential request handling (e.g., Redis cache first, then DB)
+
+📌 Running Unit Tests
+To run all tests:
+mvn test
+
+✅ Tests cover:
+Courier creation and retrieval
+Courier location updates
+Distance calculation logic
+Store entry validation
+
+📌 Troubleshooting
+Issue	                                                        Solution
+Error: Unable to access jarfile target/courier-tracking.jar	    Ensure the JAR file is built with mvn package before running
+PostgreSQL connection error	                                    Check if PostgreSQL is running and the credentials are correct in application.properties
+Redis not connecting	                                        Ensure Redis is running (docker ps should show Redis)
+
+
+📌 Contributors
+👤 Developer: [Mehmet Alper Karabay]
+🔗 Contact: alperkarabay0671@gmail.com
 
 
